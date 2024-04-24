@@ -108,7 +108,7 @@ function VerificarAceptabilidad() {
 function Prueba(){
     Int = 2
     switch(int){
-        case 1:
+        case 1:console.log("Hello Aquino!!!");
             break
         case 2:
             break
