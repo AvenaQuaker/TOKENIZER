@@ -115,5 +115,8 @@ function Prueba(){
                 console.log('prueba1')
             })
             break
+
+        case 4:
+            console.log('Hola Aletse')
     }
 }
