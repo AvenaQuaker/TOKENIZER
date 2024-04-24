@@ -111,6 +111,9 @@ function Prueba(){
         case 1:
             break
         case 2:
+            document.getElementById('message').addEventListener('click',()=>{
+                console.log('prueba1')
+            })
             break
     }
 }
