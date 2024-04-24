@@ -105,6 +105,7 @@ function VerificarAceptabilidad() {
     }
 }
 
+//Comentario de prueba
 function Prueba(){
     Int = 2
     switch(int){
