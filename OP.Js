@@ -104,3 +104,13 @@ function VerificarAceptabilidad() {
         }
     }
 }
+
+function Prueba(){
+    Int = 2
+    switch(int){
+        case 1:
+            break
+        case 2:
+            break
+    }
+}
