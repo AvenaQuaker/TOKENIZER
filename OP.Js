@@ -115,6 +115,8 @@ function Prueba(){
                 console.log('prueba1')
             })
             break
+        case 5:console.log("Hello Aletse!!!");
+            break
         case 3:
             document.getElementById('message').addEventListener('click',()=>{
                 console.log('prueba3')       
