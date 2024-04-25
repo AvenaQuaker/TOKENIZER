@@ -13,18 +13,18 @@ let Alfabeto = {
 let pilaBanderas = []
 
 let Matriz = [
-[1,0,5,9,0,0,0,0],
-[0,0,2,0,0,0,0,0],
-[0,3,0,0,0,0,0,0],
-[0,0,0,0,0,0,'Acepta','OPL2'],
-[0,0,0,0,0,0,0,0],
-[0,0,0,6,0,0,0,0],
-[0,0,0,0,0,7,0,0],
-[0,0,0,0,0,0,'Acepta','OPL1'],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,10,0,0,0],
-[0,0,0,0,0,0,'Acepta','OPL3'],
-[0,0,0,0,0,0,0,0],
+    [1, 11, 5, 9, 11, 11, 11, 11],
+    [11, 11, 2, 11, 11, 11, 11, 11],
+    [11, 3, 11, 11, 11, 11, 11, 11],
+    [11, 11, 11, 11, 11, 11, 'Acepta', 'OPL2'],
+    [11, 11, 11, 11, 11, 11, 11, 11],
+    [11, 11, 11, 6, 11, 11, 11, 11],
+    [11, 11, 11, 11, 11, 7, 11, 11],
+    [11, 11, 11, 11, 11, 11, 'Acepta', 'OPL1'],
+    [11, 11, 11, 11, 11, 11, 11, 11],
+    [11, 11, 11, 11, 10, 11, 11, 11],
+    [11, 11, 11, 11, 11, 11, 'Acepta', 'OPL3'],
+    [11, 11, 11, 11, 11, 11, 'Acepta', 'Posible Error']
 ];
 
 let MatrizDeTransicion = [
@@ -106,21 +106,5 @@ function VerificarAceptabilidad() {
         {
             cad.textContent = 'Se acepta la Cadena'
         }
-    }
-}
-
-//Comentario de prueba
-function Prueba(){
-    Int = 2
-    switch(int){
-        case 1:console.log("Hello Aquino!!!");
-            break
-        case 2:
-            document.getElementById('message').addEventListener('click',()=>{
-                console.log('prueba1')
-            })
-            break
-        case 5:console.log("Hello Aletse!!!");
-            break
     }
 }
