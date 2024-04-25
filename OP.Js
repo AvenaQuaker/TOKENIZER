@@ -311,3 +311,18 @@ function VerificarAceptabilidad() {
         }
     }
 }
+
+function Prueba(){
+    Int = 2
+    switch(int){
+        case 1:console.log("Hello Aquino!!!");
+            break
+        case 2:
+            document.getElementById('message').addEventListener('click',()=>{
+                console.log('prueba1')
+            })
+            break
+        case 5:console.log("Hello Aletse!!!");
+            break
+    }
+}
