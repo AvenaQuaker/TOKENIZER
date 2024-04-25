@@ -27,6 +27,10 @@ let Matriz = [
 [0,0,0,0,0,0,0,0],
 ];
 
+let MatrizDeTransicion = [
+    
+]
+
 let Estado = document.getElementById('message')
 let Operador = document.getElementById('operador')
 let cad = document.getElementById('cadena')
