@@ -309,17 +309,14 @@ function VerificarCadena() {
     pilaBanderas = []
     Estado.textContent = 'No se encontraron operadores validos'
     Operador.textContent = 'Operadores Logicos Encontrados: '
-    cad.textContent = 'No se acepta la Cadena'
     
     let Cadena = document.getElementById('input').value.trim();
     let Palabras = Cadena.split(' ');
     console.log(Palabras)
-
     for(p = 0; p < Palabras.length; p++)
     {
         Fila = 0;
         Columna = 0;
-
         for(i = 0; i < Palabras[p].length; i++){
             let palabra = Palabras[p]
             console.log(palabra[i])
@@ -330,7 +327,6 @@ function VerificarCadena() {
                 console.log('%c' + Fila + ' Fila Actual', 'color: cyan');
                 console.log('%c' + Columna + ' Columna Actual', 'color: cyan');
                 console.log('%c' + accion + ' Valor almacenado en el la posicion designada', 'color: cyan');
-                console.log('%cMatriz de Posiciones', 'color: cyan', Matriz);
     
             if(Columna != 'undefined')
             {
@@ -342,51 +338,15 @@ function VerificarCadena() {
                         console.log('%c[' + Fila + '][' + ColumnaPrueba + '] Proxima Posicion usando el sig caracter', 'color: cyan');
                         console.log('%c' + accionPrueba + ' Valor del siguiente movimiento', 'color: cyan');
 
-                    if(accionPrueba == 'Acepta'){
                         Estado.textContent = 'Operadores Logicos Encontrados!' 
                         Operador.textContent = Operador.textContent + (Matriz[Fila][ColumnaPrueba+1]) + ' '
                         pilaBanderas.push(1)
                     }
-
-                }
                 else    
                 {
-                    pilaBanderas.push(0)
                     break;
                 }
-            }
         }
-
         VerificarAceptabilidad()
-    }
-}
-
-function VerificarAceptabilidad() {
-    for(i=0;pilaBanderas.length > i ;i++)
-    {
-        if(pilaBanderas[i] == 0)
-        {
-            cad.textContent = 'No se acepta la Cadena'
-            break;
-        }
-        else
-        {
-            cad.textContent = 'Se acepta la Cadena'
-        }
-    }
-}
-
-function Prueba(){
-    Int = 2
-    switch(int){
-        case 1:console.log("Hello Aquino!!!");
-            break
-        case 2:
-            document.getElementById('message').addEventListener('click',()=>{
-                console.log('prueba1')
-            })
-            break
-        case 5:console.log("Hello Aletse!!!");
-            break
     }
 }
