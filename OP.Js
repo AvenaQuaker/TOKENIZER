@@ -1,30 +1,4 @@
 
-let Alfabeto= {
-    'A':0,
-    'D' :1,
-    'N' :2,
-    'O' :3,
-    'R' :4,
-    'T' :5,
-    ' ':6,
-    'undefined':6,
-};
-let Matriz = [
-    [1, 11, 5, 9, 11, 11, 12, 11],
-    [11, 11, 2, 11, 11, 11, 11, 11],
-    [11, 3, 11, 11, 11, 11, 12, 11],
-    [11, 11, 11, 11, 11, 11, 'Acepta', 'OPL2'],
-    [11, 11, 11, 11, 11, 11, 12, 11],
-    [11, 11, 11, 6, 11, 11, 11, 11],
-    [11, 11, 11, 11, 11, 7, 11, 11],
-    [11, 11, 11, 11, 11, 11, 'Acepta', 'OPL1'],
-    [11, 11, 11, 11, 11, 11, 12, 11],
-    [11, 11, 11, 11, 10, 11, 12, 11],
-    [11, 11, 11, 11, 11, 11, 'Acepta', 'OPL3'],
-    [11, 11, 11, 11, 11, 11, 'Error', 'Error A'],
-    [11, 11, 11, 11, 11, 11, 'Error', 'Error B']
-];
-
 let Alfabeto1 = {
     'A': 0,
     'B': 1,
@@ -91,6 +65,8 @@ let Alfabeto1 = {
     '~': 62,
     '`': 63,
     '':64,
+    ' ':64,
+    '\n':64,
     'undefined':64,
 }
 
@@ -318,7 +294,8 @@ function VerificarCadena() {
     let arregloBanderas = [];
     Operador.textContent = 'Operadores Encontrados: '
 
-    let Cadena = document.getElementById('input').value.trim();
+    let Cadena = document.getElementById('input').value.trim()
+    Cadena = Cadena.replace(/\n/g, " ");
     let Palabras = Cadena.split(' ');
     console.log(Palabras)
     for(p = 0; p < Palabras.length; p++)
@@ -327,10 +304,13 @@ function VerificarCadena() {
         let Bandera;
         Fila = 0;
         Columna = 0;
-        
-        for(i = 0; i < Palabras[p].length; i++){
+
+        if(Palabras[p] != '')
+        {
             
+        for(i = 0; i < Palabras[p].length; i++){
             let palabra = Palabras[p]
+
             console.log(palabra[i])
             Columna = Alfabeto1[palabra[i]]
             let accion = (Matriz1[Fila][Columna])
@@ -379,6 +359,7 @@ function VerificarCadena() {
         else{
             Estado.textContent = 'Cadena Aceptada'
             Operador.textContent = Operador.textContent + Resultado + ' '
+        }
         }
     }
 }
