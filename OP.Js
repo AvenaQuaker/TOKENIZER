@@ -87,7 +87,7 @@ let Alfabeto1 = {
     '?': 58,
     ':': 59,
     "'": 60,
-    '\'': 61,
+    '/': 61,
     '~': 62,
     '`': 63,
     '': 64,
@@ -318,17 +318,29 @@ let Matriz1 = [
 /*412*/[190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      190],
 ]
 
-let Estado = document.getElementById('message')
-let Operador = document.getElementById('operador')
+var Estado = document.getElementById('message')
+var Operador = document.getElementById('operador')
+var programaFuente = document.getElementById('programaFuente')
+var codificacion = document.getElementById('input')
+var archivoTokens = document.getElementById('archivoTokens')
+var listboxTokens = document.getElementById('listboxTokens')
+var erroresLexicos = document.getElementById('erroresLexicos')
+var tablaSimbolos = document.getElementById('tablaSimbolos')
 
-function VerificarCadena() {
+function VerificarEntradas() {
+    nutrirProgramaFuente() 
+    detectarTokens()
+}
+
+function nutrirProgramaFuente(){
     console.clear()
+    listboxTokens.value = ''
     let Fila = 0;
     let Columna = 0;
     let arregloBanderas = [];
     Operador.textContent = 'Operadores Encontrados: '
 
-    let Cadena = document.getElementById('input').value.trim()
+    let Cadena = codificacion.value.trim()
     Cadena = Cadena.replace(/\n/g, " ");
     let Palabras = Cadena.split(' ');
     console.log(Palabras)
@@ -384,16 +396,31 @@ function VerificarCadena() {
         if(arregloBanderas.includes(0))
         {
             Estado.textContent = 'Cadena no Aceptada'
-            Operador.textContent = Operador.textContent + Resultado + ' '
+            listboxTokens.value = listboxTokens.value + Resultado + ' '
         }
         else if(arregloBanderas[0] == undefined){
             Estado.textContent = 'Cadena Vacia'
-            Operador.textContent = 'Operadores Encontrados: '
+            listboxTokens.value = listboxTokens.value + Resultado + ' '
         }
         else{
             Estado.textContent = 'Cadena Aceptada'
-            Operador.textContent = Operador.textContent + Resultado + ' '
+            listboxTokens.value = listboxTokens.value + Resultado + ' '
         }
         }
+
+        
     }
+}
+function detectarTokens(){
+    // Obtiene el contenido del textarea
+    var contenido = codificacion.value;
+
+    // Obtiene la posición del cursor
+    var cursorPos = codificacion.selectionStart;
+
+    // Cuenta el número de saltos de línea antes de la posición del cursor
+    var lineasAntesCursor = contenido.substr(0, cursorPos).split('\n').length;
+
+    // Muestra la línea actual en la consola
+    console.log('Estás en la línea: ' + lineasAntesCursor);
 }

@@ -7,11 +7,34 @@
     <link rel="stylesheet" href="OP.css">
 </head>
 <body>
-    <div class="Contenedor" id="Contenedor">
-        <h2>Programa de Automatas Finitos</h2>
-        <textarea type="text" id="input" autocomplete="off" oninput="VerificarCadena()"></textarea>
-        <h3 id="message">Estado de la cadena</h3>
-        <h3 id="operador">Operadores Logicos: </h3>
+    <h1>Lenguaje CASH - Analizador Lexico</h1>
+
+    <div class="analizadores">
+        <div class="AnalizadorDerecha">
+            <div class="Contenedor" id="programaFuente">
+                <h2>Programa Fuente</h2>
+                <textarea type="text" id='input' autocomplete="off" oninput="VerificarEntradas()"></textarea>
+                <h3 id="message">Estado de la cadena</h3>
+            </div>
+            <div class="Contenedor" id="erroresLexicos">
+                <h2>Errores Lexicos</h2>
+                <textarea type="text" id="input" autocomplete="off" oninput="VerificarCadena()"></textarea>
+                <h3 id="message">Estado de la cadena</h3>
+                <h3 id="operador">Operadores Logicos: </h3>
+            </div>
+        </div>
+        <div class="AnalizadorIzquierda">
+            <div class="Contenedor" id="archivoTokens">
+                <h2>Archivo de Tokens</h2>
+                <textarea type="text" autocomplete="off" id="listboxTokens"></textarea>
+            </div>
+            <div class="Contenedor" id="tablaSimbolos">
+                <h2>Tabla de Simbolos</h2>
+                <textarea type="text" id="input" autocomplete="off"></textarea>
+                <h3 id="message">Estado de la cadena</h3>
+                <h3 id="operador">Operadores Logicos: </h3>
+            </div>
+        </div>
     </div>
 <script src="OP.js"></script>
 </body>
