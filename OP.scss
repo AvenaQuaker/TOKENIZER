@@ -37,6 +37,8 @@ h1{
 .Contenedor {
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
     margin: 1rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
     background: #f1f7fe;
     overflow: hidden;
     border-radius: 16px;
@@ -48,6 +50,20 @@ h1{
     text-align: center;
 }
 
+.interdiv{
+    display: flex;
+    flex-direction: row;
+}
+
 textarea {
+    overflow: hidden;
     height: 35vh;
+    width: 100%;
+
+    &.numeros{
+        display: flex;
+        text-align: end;
+        width: 2%;
+        max-width: 3%;
+    }
 }

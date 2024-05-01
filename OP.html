@@ -13,7 +13,10 @@
         <div class="AnalizadorDerecha">
             <div class="Contenedor" id="programaFuente">
                 <h2>Programa Fuente</h2>
-                <textarea type="text" id='input' autocomplete="off" oninput="VerificarEntradas()"></textarea>
+                <div class="interdiv">
+                    <textarea type="text" id='numeros'class="numeros" disabled>1</textarea>
+                    <textarea type="text" id='input' autocomplete="off"></textarea>
+                </div>
             </div>
             <div class="Contenedor" id="erroresLexicos">
                 <h2>Errores Lexicos</h2>
@@ -25,7 +28,10 @@
         <div class="AnalizadorIzquierda">
             <div class="Contenedor" id="archivoTokens">
                 <h2>Archivo de Tokens</h2>
-                <textarea type="text" autocomplete="off" id="listboxTokens"></textarea>
+                <div class="interdiv">
+                    <textarea type="text" id='numeros'class="numeros" disabled>1</textarea>
+                    <textarea type="text" autocomplete="off" id="listboxTokens"></textarea>
+                </div>
             </div>
             <div class="Contenedor" id="tablaSimbolos">
                 <h2>Tabla de Simbolos</h2>

@@ -1,5 +1,9 @@
 
+// Variables globales
 let LineaActual;
+var contador = 1;
+
+// Alfabeto
 let Alfabeto1 = {
     'A': 0,
     'B': 1,
@@ -96,6 +100,8 @@ let Alfabeto1 = {
     '\n': 64,
     'undefined': 64,
 }
+
+// Lista de Errores
 let Errores = {
     'ER190':'Palabra reservada no valida',
     'ER191':'Identificador no valido',
@@ -109,6 +115,7 @@ let Errores = {
     'ER199':'Caracter especial no valido',
 }
 
+// Matriz de Transicion
 let Matriz1 = [
   //     0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49   50   51   52   53   54   55   56   57   58   59   60   61   62   63   64        65        
   //     A    B    C    D    E	  F    G    H    I	  J    K    L    M	  N    O    P    Q    R    S    T    U    V    W    X    Y    Z    0    1    2	  3    4    5    6    7    8    9    $	  +    -    /    *	  ^    .    <    >	  =    !    &    |	  "    ,    ;    _    (    )    @    #    %    ?    :    '	  \    ~    `   FDC       Acepta
@@ -331,6 +338,7 @@ let Matriz1 = [
 /*409*/[199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199, 199,   "ER199"],
 ]
 
+// Obtencion de todos los elementos HTML
 var Operador = document.getElementById('operador')
 var programaFuente = document.getElementById('programaFuente')
 var codificacion = document.getElementById('input')
@@ -338,71 +346,102 @@ var archivoTokens = document.getElementById('archivoTokens')
 var listboxTokens = document.getElementById('listboxTokens')
 var erroresLexicos = document.getElementById('erroresLexicos')
 var tablaSimbolos = document.getElementById('tablaSimbolos')
+var listado = document.querySelectorAll('.numeros')
 
-function VerificarEntradas() {
+// Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
+codificacion.addEventListener('input',()=>{
     nutrirProgramaFuente() 
     detectarTokens()
-}
+})
 
+// Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
+codificacion.addEventListener('keydown',(e)=>{
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+        contador++;
+        listado[0].value += '\n' + contador;
+        listado[1].value += '\n' + contador;
+    }
+})
+
+// Analizador Lexico
 function nutrirProgramaFuente(){
+    // Inicializacion de variables de inicio para el analizador
     console.clear()
     listboxTokens.value = ''
     let Fila = 0;
     let Columna = 0;
+
+    // Obtencion de la cadena 
     let Cadena = codificacion.value.trim()
+    // Remplaza todos los saltos de linea por espacios en blanco
     Cadena = Cadena.replace(/\n/g, " ");
+    // Obtencion de cada una de las palabras del textarea
     let Palabras = Cadena.split(' ');
     console.log(Palabras)
 
+    // Recorrido por cada una de las palabras
     for(p = 0; p < Palabras.length; p++)
     {
+        // Sobreescritura de las variables iniciales por cada palabra
         let Resultado;
         Fila = 0;
         Columna = 0;
 
-        var contenido = codificacion.value;
-        var cursorPos = codificacion.selectionStart;
-        LineaActual = contenido.substr(0, cursorPos).split('\n').length;
-        console.log('Estás en la línea: ' + LineaActual);
-
+        // Verificacion de cadena vacia 
         if(Palabras[p] != '')
         {
-            
-        for(i = 0; i < Palabras[p].length; i++){
-            let palabra = Palabras[p]
+            //Recorrido por cada una de las letras de la palabra    
+            for(i = 0; i < Palabras[p].length; i++){
+                // Obtencion de la letra
+                let palabra = Palabras[p]
+                console.log(palabra[i])
 
-            console.log(palabra[i])
-            Columna = Alfabeto1[palabra[i]]
-            let accion = (Matriz1[Fila][Columna])
+                // Obtencion de la columna con respecto a la entrada en el alfabeto
+                Columna = Alfabeto1[palabra[i]]
+                // Inicio del recorrido en la matriz
+                let accion = (Matriz1[Fila][Columna])
 
                 console.log('%c' + palabra[i] + ' Caracter Actual', 'color: cyan');
                 console.log('%c' + Fila + ' Fila Actual', 'color: cyan');
                 console.log('%c' + Columna + ' Columna Actual', 'color: cyan');
                 console.log('%c' + accion + ' Valor almacenado en el la posicion designada', 'color: cyan');
                 
-                    Fila = accion;
-                    let ColumnaPrueba = Alfabeto1[palabra[i+1]]
-                    let accionPrueba = (Matriz1[Fila][ColumnaPrueba])
-                        console.log('%c[' + Fila + '][' + ColumnaPrueba + '] Proxima Posicion usando el sig caracter', 'color: cyan')
-                        console.log('%c' + accionPrueba + ' Valor del siguiente movimiento', 'color: cyan')
-                    
-                    VerificacionToken = Matriz1[Fila][Matriz1[Fila].length - 1]
-                    console.log(VerificacionToken)
-                    
-                    if(typeof VerificacionToken == "string")
-                    {
-                        Resultado = VerificacionToken
-                    }
-                    else{
-                        VerificacionToken = Matriz1[accionPrueba][Matriz1[Fila].length - 1]
-                        Resultado = VerificacionToken
-                    }
-        }
+                // Obtencion de la proxima fila tomando en cuenta el resultado del recorrido
+                Fila = accion;
 
+                // Obtencion del caracter proximo al ultimo caracter ingresado
+                let ColumnaPrueba = Alfabeto1[palabra[i+1]]
+
+                // Aproximacion del proximo movimiento
+                let accionPrueba = (Matriz1[Fila][ColumnaPrueba])
+                    console.log('%c[' + Fila + '][' + ColumnaPrueba + '] Proxima Posicion usando el sig caracter', 'color: cyan')
+                    console.log('%c' + accionPrueba + ' Valor del siguiente movimiento', 'color: cyan')
+                
+                // Resultado del final del recorrido
+                VerificacionToken = Matriz1[Fila][Matriz1[Fila].length - 1]
+                console.log(VerificacionToken)
+                
+                // Si el resultado es una cadena (TOKEN) entonces se acepta y se agrega
+                if(typeof VerificacionToken == "string")
+                {
+                    Resultado = VerificacionToken
+                }
+                // Si no, entonces obtencion del resultado usando la ultima posicion almacenada como proximo movimiento
+                // Puede ser o FDC que resultaria en el TOKEN
+                // Puede resultar en el Codigo de Error, en el caso en que el proximo movimiento diriga el recorrido ahi
+                else{
+                    VerificacionToken = Matriz1[accionPrueba][Matriz1[Fila].length - 1]
+                    Resultado = VerificacionToken
+                }
+            }
+
+        // Agregacion del TOKEN o ERROR obtenido al archivo de Tokens
         listboxTokens.value = listboxTokens.value + Resultado + ' '
     }
 }}
 
+// Archivo de Tokens
 function detectarTokens(){
     
 }
