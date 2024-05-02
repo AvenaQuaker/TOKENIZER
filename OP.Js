@@ -1,6 +1,6 @@
 
 // Variables globales
-let LineaActual;
+var TokensDetectados = []
 var contador = 1;
 
 // Alfabeto
@@ -348,14 +348,9 @@ var erroresLexicos = document.getElementById('erroresLexicos')
 var tablaSimbolos = document.getElementById('tablaSimbolos')
 var listado = document.querySelectorAll('.numeros')
 
-// Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
-codificacion.addEventListener('input',()=>{
-    nutrirProgramaFuente() 
-    detectarTokens()
-})
-
 // Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
 codificacion.addEventListener('keydown',(e)=>{
+
     var keyCode = e.keyCode || e.which;
     if (keyCode === 13) {
         contador++;
@@ -364,10 +359,18 @@ codificacion.addEventListener('keydown',(e)=>{
     }
 })
 
+
+// Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
+codificacion.addEventListener('input',()=>{
+    nutrirProgramaFuente() 
+    detectarTokens()
+})
+
 // Analizador Lexico
 function nutrirProgramaFuente(){
     // Inicializacion de variables de inicio para el analizador
     console.clear()
+    TokensDetectados = []
     listboxTokens.value = ''
     let Fila = 0;
     let Columna = 0;
@@ -384,7 +387,7 @@ function nutrirProgramaFuente(){
     for(p = 0; p < Palabras.length; p++)
     {
         // Sobreescritura de las variables iniciales por cada palabra
-        let Resultado;
+        let Resultado
         Fila = 0;
         Columna = 0;
 
@@ -425,23 +428,41 @@ function nutrirProgramaFuente(){
                 // Si el resultado es una cadena (TOKEN) entonces se acepta y se agrega
                 if(typeof VerificacionToken == "string")
                 {
-                    Resultado = VerificacionToken
+                    Resultado = VerificacionToken + ' '
                 }
                 // Si no, entonces obtencion del resultado usando la ultima posicion almacenada como proximo movimiento
                 // Puede ser o FDC que resultaria en el TOKEN
                 // Puede resultar en el Codigo de Error, en el caso en que el proximo movimiento diriga el recorrido ahi
                 else{
                     VerificacionToken = Matriz1[accionPrueba][Matriz1[Fila].length - 1]
-                    Resultado = VerificacionToken
+                    Resultado = VerificacionToken + ' '
                 }
             }
 
         // Agregacion del TOKEN o ERROR obtenido al archivo de Tokens
-        listboxTokens.value = listboxTokens.value + Resultado + ' '
+        TokensDetectados.push(Resultado)
     }
-}}
+}
+}
 
-// Archivo de Tokens
-function detectarTokens(){
+//Archivo de Tokens
+function detectarTokens() {
+    console.clear();
+    let Cadena = codificacion.value;
+    var palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     
+    // Recorrer todas las palabras y actualizar los Tokens
+    for (let i = 0; i < palabras.length; i++) {
+        if (/\n/.test(palabras[i])) {
+            // Contar la cantidad de saltos de línea en la palabra
+            let cantidadSaltos = palabras[i].match(/\n/g).length;
+            // Agregar la misma cantidad de saltos de línea al Token correspondiente
+            let saltos = '\n'.repeat(cantidadSaltos);
+            TokensDetectados[i] += saltos;
+        }
+    }
+
+    for(i = 0; TokensDetectados.length > i ; i++){
+        listboxTokens.value = listboxTokens.value + TokensDetectados[i] 
+    }
 }
