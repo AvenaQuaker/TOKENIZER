@@ -103,17 +103,18 @@ let Alfabeto1 = {
 
 // Lista de Errores
 let Errores = {
-    'ER190':'Palabra reservada no valida',
-    'ER191':'Identificador no valido',
-    'ER192':'Constante numerica entera no valida',
-    'ER193':'Constante numerica real no valida',
-    'ER194':'Constante numerica exponencial no valida',
-    'ER195':'Operador aritmetico no valido',
-    'ER196':'Operador relacional no valido',
-    'ER197':'Operador logico no valido',
-    'ER198':'Cadena no valida',
-    'ER199':'Caracter especial no valido',
+    "ER190":'Palabra reservada no valida',
+    "ER191":'Identificador no valido',
+    "ER192":'Constante numerica entera no valida',
+    "ER193":'Constante numerica real no valida',
+    "ER194":'Constante numerica exponencial no valida',
+    "ER195":'Operador aritmetico no valido',
+    "ER196":'Operador relacional no valido',
+    "ER197":'Operador logico no valido',
+    "ER198":'Cadena no valida',
+    "ER199":'Caracter especial no valido',
 }
+
 
 // Matriz de Transicion
 let Matriz1 = [
@@ -347,31 +348,47 @@ var listboxTokens = document.getElementById('listboxTokens')
 var erroresLexicos = document.getElementById('erroresLexicos')
 var tablaSimbolos = document.getElementById('tablaSimbolos')
 var listado = document.querySelectorAll('.numeros')
+var numerosLineas = document.querySelectorAll('.numerosLinea')
+var erroresLexicos = document.getElementById('errores')
 
 // Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
-codificacion.addEventListener('keydown',(e)=>{
-
-    var keyCode = e.keyCode || e.which;
-    if (keyCode === 13) {
-        contador++;
-        listado[0].value += '\n' + contador;
-        listado[1].value += '\n' + contador;
+codificacion.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const lineaActual = codificacion.value.substr(0, codificacion.selectionStart).split('\n').length;
+        if (lineaActual === 1) {
+            const primeraLinea = codificacion.value.substr(0, codificacion.selectionStart).split('\n')[0];
+            if (primeraLinea.trim() === '') {
+                e.preventDefault();
+            }
+        }
     }
-})
+});
 
+// Funcion que sigue el paso del programa fuente
+function actualizarNumerosLinea() {
+    const numeroLinea = codificacion.value.split('\n').length;
+    numerosLineas[0].innerHTML = '';
+    numerosLineas[1].innerHTML = '';
+    for (let i = 1; i <= numeroLinea; i++) {
+        numerosLineas[0].innerHTML += i + '<br>';
+        numerosLineas[1].innerHTML += i + '<br>';
+    }
+}
 
 // Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
 codificacion.addEventListener('input',()=>{
-    nutrirProgramaFuente() 
-    detectarTokens()
+    console.clear()
+    actualizarNumerosLinea()
+    AnalizadorLexico() 
+    ArchivoTokens()
+    ErroresLexicos()
+    TablaSimbolos()
 })
 
 // Analizador Lexico
-function nutrirProgramaFuente(){
+function AnalizadorLexico(){
     // Inicializacion de variables de inicio para el analizador
-    console.clear()
     TokensDetectados = []
-    listboxTokens.value = ''
     let Fila = 0;
     let Columna = 0;
 
@@ -446,10 +463,10 @@ function nutrirProgramaFuente(){
 }
 
 //Archivo de Tokens
-function detectarTokens() {
-    console.clear();
-    let Cadena = codificacion.value;
-    var palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
+function ArchivoTokens() {
+    listboxTokens.value = ''
+    const Cadena = codificacion.value;
+    const palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     
     // Recorrer todas las palabras y actualizar los Tokens
     for (let i = 0; i < palabras.length; i++) {
@@ -465,4 +482,31 @@ function detectarTokens() {
     for(i = 0; TokensDetectados.length > i ; i++){
         listboxTokens.value = listboxTokens.value + TokensDetectados[i] 
     }
+}
+
+function ErroresLexicos() {
+    // Limpiar el contenido anterior del textarea de errores
+    erroresLexicos.value = ''
+    let Cadena = listboxTokens.value
+    let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
+    let NumeroLinea = 0
+    let error
+
+    // Recorrer todos los Tokens y detectar los errores
+    for (let i = 0; i < palabras.length; i++) {
+        error = ''
+        error = error + Errores[palabras[i].trim()]
+
+        if(palabras[i].startsWith('ER')){
+            if (/\n/.test(palabras[i])) {
+                NumeroLinea++
+            }
+
+            erroresLexicos.value = erroresLexicos.value + "Linea " + NumeroLinea + ': ' + error + '\n'
+        }
+    }
+}
+
+function TablaSimbolos(){
+
 }

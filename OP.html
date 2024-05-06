@@ -10,33 +10,75 @@
     <h1>Lenguaje CASH - Analizador Lexico</h1>
 
     <div class="analizadores">
-        <div class="AnalizadorDerecha">
+        <div class="AnalizadorIzquierda">
             <div class="Contenedor" id="programaFuente">
+                    <div class="tools">
+                        <div class="circle">
+                        <span class="red box"></span>
+                        </div>
+                        <div class="circle">
+                        <span class="yellow box"></span>
+                        </div>
+                        <div class="circle">
+                        <span class="green box"></span>
+                        </div>
+                    </div>
                 <h2>Programa Fuente</h2>
                 <div class="interdiv">
-                    <textarea type="text" id='numeros'class="numeros" disabled>1</textarea>
                     <textarea type="text" id='input' autocomplete="off"></textarea>
+                    <pre class='numerosLinea' id="numerosLinea"></pre>
                 </div>
             </div>
             <div class="Contenedor" id="erroresLexicos">
+                <div class="tools">
+                    <div class="circle">
+                    <span class="red box"></span>
+                    </div>
+                    <div class="circle">
+                    <span class="yellow box"></span>
+                    </div>
+                    <div class="circle">
+                    <span class="green box"></span>
+                    </div>
+                </div>
                 <h2>Errores Lexicos</h2>
-                <textarea type="text" id="input" autocomplete="off" oninput="VerificarCadena()"></textarea>
-                <h3 id="message">Estado de la cadena</h3>
-                <h3 id="operador">Operadores Logicos: </h3>
+                <textarea type="text" id="errores" autocomplete="off"></textarea>
             </div>
         </div>
-        <div class="AnalizadorIzquierda">
+
+        <div class="AnalizadorDerecha">
             <div class="Contenedor" id="archivoTokens">
+                <div class="tools">
+                    <div class="circle">
+                    <span class="red box"></span>
+                    </div>
+                    <div class="circle">
+                    <span class="yellow box"></span>
+                    </div>
+                    <div class="circle">
+                    <span class="green box"></span>
+                    </div>
+                </div>
                 <h2>Archivo de Tokens</h2>
                 <div class="interdiv">
-                    <textarea type="text" id='numeros'class="numeros" disabled>1</textarea>
                     <textarea type="text" autocomplete="off" id="listboxTokens"></textarea>
+                    <pre class='numerosLinea' id="numerosLinea"></pre>
                 </div>
             </div>
             <div class="Contenedor" id="tablaSimbolos">
+                <div class="tools">
+                    <div class="circle">
+                    <span class="red box"></span>
+                    </div>
+                    <div class="circle">
+                    <span class="yellow box"></span>
+                    </div>
+                    <div class="circle">
+                    <span class="green box"></span>
+                    </div>
+                </div>
                 <h2>Tabla de Simbolos</h2>
                 <textarea type="text" id="input" autocomplete="off"></textarea>
-                <h3 id="operador">Operadores Logicos: </h3>
             </div>
         </div>
     </div>
