@@ -181,8 +181,8 @@ textarea {
     margin-left: 0;
     margin-right: 0;
     line-height: 1.2rem;
-    pointer-events: none; /* Evitar interacción del usuario */
     text-align: center;
     border-right: 1px solid #424242; /* Línea divisoria */
     padding-top: 0.2rem;
+    overflow: auto;
 }
