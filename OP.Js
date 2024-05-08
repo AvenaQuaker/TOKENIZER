@@ -92,7 +92,7 @@ let Alfabeto1 = {
     '?': 58,
     ':': 59,
     "'": 60,
-    "`\`": 61,
+    "\\": 61,
     '~': 62,
     '`': 63,
     '': 64,
@@ -472,9 +472,7 @@ function ArchivoTokens() {
     // Recorrer todas las palabras y actualizar los Tokens
     for (let i = 0; i < palabras.length; i++) {
         if (/\n/.test(palabras[i])) {
-            // Contar la cantidad de saltos de línea en la palabra
             let cantidadSaltos = palabras[i].match(/\n/g).length;
-            // Agregar la misma cantidad de saltos de línea al Token correspondiente
             let saltos = '\n'.repeat(cantidadSaltos);
             TokensDetectados[i] += saltos;
         }
