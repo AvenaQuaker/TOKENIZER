@@ -347,6 +347,7 @@ var tablaSimbolos = document.getElementById('tablaSimbolos')
 var listado = document.querySelectorAll('.numeros')
 var numerosLineas = document.querySelectorAll('.numerosLinea')
 var erroresLexicos = document.getElementById('errores')
+var tablaSimbolos = document.getElementById('simbolos')
 
 // Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
 codificacion.addEventListener('keydown', (e) => {
@@ -482,28 +483,50 @@ function ArchivoTokens() {
 }
 
 function ErroresLexicos() {
-    // Limpiar el contenido anterior del textarea de errores
     erroresLexicos.value = ''
-    let Cadena = listboxTokens.value
+    let Cadena = listboxTokens.value    
     let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
-    let NumeroLinea = 0
-    let error
+    let NumeroLinea = 1;
 
     // Recorrer todos los Tokens y detectar los errores
     for (let i = 0; i < palabras.length; i++) {
-        error = ''
-        error = error + Errores[palabras[i].trim()]
+        let cantidadSaltos;
+        let Bandera = false;
+        let error = ''
+
+        if (/\n/.test(palabras[i])) {
+            Bandera = true
+            cantidadSaltos = palabras[i].match(/\n/g).length
+        }
 
         if(palabras[i].startsWith('ER')){
-            if (/\n/.test(palabras[i])) {
-                NumeroLinea++
-            }
-
-            erroresLexicos.value = erroresLexicos.value + "Linea " + NumeroLinea + ': ' + error + '\n'
+            error = error + Errores[palabras[i].trim()]
+            erroresLexicos.value = erroresLexicos.value + "  Linea " + NumeroLinea + ':        ' + error + '\n'
         }
+
+        if(Bandera == true){
+            NumeroLinea = NumeroLinea + cantidadSaltos
+        }
+        Bandera = false;
+
     }
 }
 
 function TablaSimbolos(){
+    tablaSimbolos.value = ''
+    let Cadena1 = codificacion.value
+    let Cadena2 = listboxTokens.value
+    let Entradas = Cadena1.split(/(?<=\s)(?![\s\n])/) 
+    let Tokens = Cadena2.split(/(?<=\s)(?![\s\n])/)
+    let Numero = 1;
 
+    console.log(Tokens,Entradas)
+    // Recorrer todos los Tokens y detectar los Identificadores
+    for (let i = 0; i < Tokens.length; i++) {
+        if(Tokens[i].startsWith('VID')){
+            let Valor = Entradas[i].trim()
+            tablaSimbolos.value = tablaSimbolos.value + "  Num" + Numero + ':        ' + Valor + '\n'
+            Numero++;
+        }
+    }
 }

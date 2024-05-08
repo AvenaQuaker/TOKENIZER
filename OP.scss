@@ -74,7 +74,12 @@ body {
 
         #listboxTokens {
             padding-left: 2.5rem;
+            pointer-events: none;
         }
+
+        #simbolos {
+            pointer-events: none;
+        } 
     }
 
     .AnalizadorIzquierda{
@@ -84,6 +89,10 @@ body {
         
         #input {
             padding-left: 2.5rem; /* Espacio para los números de línea */
+        }
+
+        #errores {
+            pointer-events: none;
         }
     }
 }

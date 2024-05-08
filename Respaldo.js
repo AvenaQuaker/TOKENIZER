@@ -103,17 +103,18 @@ let Alfabeto1 = {
 
 // Lista de Errores
 let Errores = {
-    'ER190':'Palabra reservada no valida',
-    'ER191':'Identificador no valido',
-    'ER192':'Constante numerica entera no valida',
-    'ER193':'Constante numerica real no valida',
-    'ER194':'Constante numerica exponencial no valida',
-    'ER195':'Operador aritmetico no valido',
-    'ER196':'Operador relacional no valido',
-    'ER197':'Operador logico no valido',
-    'ER198':'Cadena no valida',
-    'ER199':'Caracter especial no valido',
+    "ER190":'Palabra reservada no valida',
+    "ER191":'Identificador no valido',
+    "ER192":'Constante numerica entera no valida',
+    "ER193":'Constante numerica real no valida',
+    "ER194":'Constante numerica exponencial no valida',
+    "ER195":'Operador aritmetico no valido',
+    "ER196":'Operador relacional no valido',
+    "ER197":'Operador logico no valido',
+    "ER198":'Cadena no valida',
+    "ER199":'Caracter especial no valido',
 }
+
 
 // Matriz de Transicion
 let Matriz1 = [
@@ -254,7 +255,7 @@ let Matriz1 = [
 /*124*/[190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 'Acepta', 190],
 /*125*/[190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      'RW24'],
 /*126*/[127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      190],
-/*127*/[127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 'Acepta', 190],
+/*127*/[127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 128, 190],
 /*128*/[190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      'VID'],
 /*129*/[190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 'Acepta', 190],
 /*130*/[190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      'SUM'],
@@ -347,31 +348,48 @@ var listboxTokens = document.getElementById('listboxTokens')
 var erroresLexicos = document.getElementById('erroresLexicos')
 var tablaSimbolos = document.getElementById('tablaSimbolos')
 var listado = document.querySelectorAll('.numeros')
+var numerosLineas = document.querySelectorAll('.numerosLinea')
+var erroresLexicos = document.getElementById('errores')
+var tablaSimbolos = document.getElementById('simbolos')
 
 // Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
-codificacion.addEventListener('keydown',(e)=>{
-
-    var keyCode = e.keyCode || e.which;
-    if (keyCode === 13) {
-        contador++;
-        listado[0].value += '\n' + contador;
-        listado[1].value += '\n' + contador;
+codificacion.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const lineaActual = codificacion.value.substr(0, codificacion.selectionStart).split('\n').length;
+        if (lineaActual === 1) {
+            const primeraLinea = codificacion.value.substr(0, codificacion.selectionStart).split('\n')[0];
+            if (primeraLinea.trim() === '') {
+                e.preventDefault();
+            }
+        }
     }
-})
+});
 
+// Funcion que sigue el paso del programa fuente
+function actualizarNumerosLinea() {
+    const numeroLinea = codificacion.value.split('\n').length;
+    numerosLineas[0].innerHTML = '';
+    numerosLineas[1].innerHTML = '';
+    for (let i = 1; i <= numeroLinea; i++) {
+        numerosLineas[0].innerHTML += i + '<br>';
+        numerosLineas[1].innerHTML += i + '<br>';
+    }
+}
 
 // Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
 codificacion.addEventListener('input',()=>{
-    nutrirProgramaFuente() 
-    detectarTokens()
+    console.clear()
+    actualizarNumerosLinea()
+    AnalizadorLexico() 
+    ArchivoTokens()
+    ErroresLexicos()
+    TablaSimbolos()
 })
 
 // Analizador Lexico
-function nutrirProgramaFuente(){
+function AnalizadorLexico(){
     // Inicializacion de variables de inicio para el analizador
-    console.clear()
     TokensDetectados = []
-    listboxTokens.value = ''
     let Fila = 0;
     let Columna = 0;
 
@@ -446,10 +464,10 @@ function nutrirProgramaFuente(){
 }
 
 //Archivo de Tokens
-function detectarTokens() {
-    console.clear();
-    let Cadena = codificacion.value;
-    var palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
+function ArchivoTokens() {
+    listboxTokens.value = ''
+    const Cadena = codificacion.value;
+    const palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     
     // Recorrer todas las palabras y actualizar los Tokens
     for (let i = 0; i < palabras.length; i++) {
@@ -464,5 +482,54 @@ function detectarTokens() {
 
     for(i = 0; TokensDetectados.length > i ; i++){
         listboxTokens.value = listboxTokens.value + TokensDetectados[i] 
+    }
+}
+
+function ErroresLexicos() {
+    erroresLexicos.value = ''
+    let Cadena = listboxTokens.value    
+    let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
+    let NumeroLinea = 1;
+
+    // Recorrer todos los Tokens y detectar los errores
+    for (let i = 0; i < palabras.length; i++) {
+        let cantidadSaltos;
+        let Bandera = false;
+        let error = ''
+
+        if (/\n/.test(palabras[i])) {
+            Bandera = true
+            cantidadSaltos = palabras[i].match(/\n/g).length
+        }
+
+        if(palabras[i].startsWith('ER')){
+            error = error + Errores[palabras[i].trim()]
+            erroresLexicos.value = erroresLexicos.value + "  Linea " + NumeroLinea + ':        ' + error + '\n'
+        }
+
+        if(Bandera == true){
+            NumeroLinea = NumeroLinea + cantidadSaltos
+        }
+        Bandera = false;
+
+    }
+}
+
+function TablaSimbolos(){
+    tablaSimbolos.value = ''
+    let Cadena1 = codificacion.value
+    let Cadena2 = listboxTokens.value
+    let Entradas = Cadena1.split(/(?<=\s)(?![\s\n])/) 
+    let Tokens = Cadena2.split(/(?<=\s)(?![\s\n])/)
+    let Numero = 1;
+
+    console.log(Tokens,Entradas)
+    // Recorrer todos los Tokens y detectar los Identificadores
+    for (let i = 0; i < Tokens.length; i++) {
+        if(Tokens[i].startsWith('VID')){
+            let Valor = Entradas[i].trim()
+            tablaSimbolos.value = tablaSimbolos.value + "  Num" + Numero + ':        ' + Valor + '\n'
+            Numero++;
+        }
     }
 }
