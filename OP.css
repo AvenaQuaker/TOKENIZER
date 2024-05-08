@@ -60,10 +60,6 @@ body ::-webkit-scrollbar-thumb {
 }
 .analizadores .AnalizadorDerecha #listboxTokens {
   padding-left: 2.5rem;
-  pointer-events: none;
-}
-.analizadores .AnalizadorDerecha #simbolos {
-  pointer-events: none;
 }
 .analizadores .AnalizadorIzquierda {
   width: 50%;
@@ -73,10 +69,6 @@ body ::-webkit-scrollbar-thumb {
 .analizadores .AnalizadorIzquierda #input {
   padding-left: 2.5rem; /* Espacio para los números de línea */
 }
-.analizadores .AnalizadorIzquierda #errores {
-  pointer-events: none;
-}
-
 .Contenedor {
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
   margin: 1rem;
