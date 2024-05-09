@@ -1,6 +1,7 @@
 
 // Variables globales
 var TokensDetectados = []
+var Variables = {}
 var contador = 1;
 
 // Alfabeto
@@ -380,6 +381,7 @@ function actualizarNumerosLinea() {
 codificacion.addEventListener('input',()=>{
     console.clear()
     actualizarNumerosLinea()
+
     AnalizadorLexico() 
     ArchivoTokens()
     ErroresLexicos()
@@ -390,16 +392,18 @@ codificacion.addEventListener('input',()=>{
 function AnalizadorLexico(){
     // Inicializacion de variables de inicio para el analizador
     TokensDetectados = []
+    Variables = {}
     let Fila = 0;
     let Columna = 0;
+    let NumVID = 1;
 
     // Obtencion de la cadena 
     let Cadena = codificacion.value.trim()
     // Remplaza todos los saltos de linea por espacios en blanco
     Cadena = Cadena.replace(/\n/g, " ");
     // Obtencion de cada una de las palabras del textarea
+    let Entradas = Cadena.split(/(?<=\s)(?![\s\n])/) 
     let Palabras = Cadena.split(' ');
-    console.log(Palabras)
 
     // Recorrido por cada una de las palabras
     for(p = 0; p < Palabras.length; p++)
@@ -441,19 +445,54 @@ function AnalizadorLexico(){
                 
                 // Resultado del final del recorrido
                 VerificacionToken = Matriz1[Fila][Matriz1[Fila].length - 1]
-                console.log(VerificacionToken)
                 
                 // Si el resultado es una cadena (TOKEN) entonces se acepta y se agrega
                 if(typeof VerificacionToken == "string")
                 {
-                    Resultado = VerificacionToken + ' '
+                    Resultado = VerificacionToken + ''
+
+                    //Si el Token identificado es un IdentificadorValido, Se administra
+                    if(Resultado.startsWith('VID')){
+                        let palabraEscrita = Palabras[p]
+
+                        //Si el identificador ya existe como variable, entonces detecta el identificador ya escrito
+                        //Si no, anade el identificador al diccionario, como una nueva variable
+                        if(Variables.hasOwnProperty(palabraEscrita)){
+                            Objeto = Variables[palabraEscrita]
+                            Resultado = Resultado + Objeto.ID
+                        }
+                        else{
+                            VariableNueva = { ID: NumVID, Nombre: palabraEscrita,}
+                            Variables[palabraEscrita] = VariableNueva
+                            Resultado = Resultado + NumVID
+                            NumVID++
+                        }
+                    }
                 }
                 // Si no, entonces obtencion del resultado usando la ultima posicion almacenada como proximo movimiento
                 // Puede ser o FDC que resultaria en el TOKEN
                 // Puede resultar en el Codigo de Error, en el caso en que el proximo movimiento diriga el recorrido ahi
                 else{
-                    VerificacionToken = Matriz1[accionPrueba][Matriz1[Fila].length - 1]
-                    Resultado = VerificacionToken + ' '
+                    VerificacionToken = Matriz1[accionPrueba][Matriz1[Fila].length - 1]         
+                    Resultado = VerificacionToken + ''
+                    
+                    //Si el Token identificado es un IdentificadorValido, Se administra
+                    if(Resultado.startsWith('VID')){
+                        let palabraEscrita = Palabras[p]
+
+                        //Si el identificador ya existe como variable, entonces detecta el identificador ya escrito
+                        //Si no, anade el identificador al diccionario, como una nueva variable
+                        if(Variables.hasOwnProperty(palabraEscrita)){
+                            Objeto = Variables[palabraEscrita]
+                            Resultado = Resultado + Objeto.ID + ' '
+                        }
+                        else{
+                            VariableNueva = { ID: NumVID, Nombre: palabraEscrita,}
+                            Variables[palabraEscrita] = VariableNueva
+                            Resultado = Resultado + NumVID + ' '
+                            NumVID++
+                        }
+                    }
                 }
             }
 
@@ -513,21 +552,12 @@ function ErroresLexicos() {
     }
 }
 
-function TablaSimbolos(){
-    tablaSimbolos.value = ''
-    let Cadena1 = codificacion.value
-    let Cadena2 = listboxTokens.value
-    let Entradas = Cadena1.split(/(?<=\s)(?![\s\n])/) 
-    let Tokens = Cadena2.split(/(?<=\s)(?![\s\n])/)
-    let Numero = 1;
+function TablaSimbolos() {
+    tablaSimbolos.value = '';
 
-    console.log(Tokens,Entradas)
-    // Recorrer todos los Tokens y detectar los Identificadores
-    for (let i = 0; i < Tokens.length; i++) {
-        if(Tokens[i].startsWith('VID')){
-            let Valor = Entradas[i].trim()
-            tablaSimbolos.value = tablaSimbolos.value + "  Num" + Numero + ':        ' + Valor + '\n'
-            Numero++;
-        }
+    // Recorrer el diccionario de variables
+    for (let nombre in Variables) {
+        let identificador = Variables[nombre];
+        tablaSimbolos.value += `   VID${identificador.ID}:   ${identificador.Nombre}\n`;
     }
 }

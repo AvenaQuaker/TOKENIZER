@@ -67,6 +67,36 @@ body {
     justify-items: center;
     align-items: center;
 
+    .boton{
+        box-sizing: border-box;
+        appearance: none;
+        background-color: rgb(230, 234, 255);
+        border: 2px solid rgb(0, 81, 255);
+        border-radius: 1em;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+        font-family: 'Bahnschrift', 'Roboto Condensed';
+        font-size: 0.9rem;
+        line-height: 1;
+        margin-top: 1.5rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        padding: 1em 2.5em;
+        text-decoration: none;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 700;
+        transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+
+        &:hover,
+        &:focus {
+            box-shadow: 0 0 40px 40px rgb(0, 81, 255) inset;
+            color: #fff;
+            outline: 0;
+        }
+
+    }
+
     .AnalizadorDerecha{
         width: 50%;
         display: flex;
@@ -76,10 +106,6 @@ body {
             padding-left: 2.5rem;
 
         }
-
-        #simbolos {
-            
-        } 
     }
 
     .AnalizadorIzquierda{
@@ -89,10 +115,6 @@ body {
         
         #input {
             padding-left: 2.5rem; /* Espacio para los números de línea */
-        }
-
-        #errores {
-            
         }
     }
 }
