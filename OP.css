@@ -94,7 +94,7 @@ body ::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: column;
 }
-.analizadores .AnalizadorIzquierda #input {
+.analizadores .AnalizadorIzquierda #programa {
   padding-left: 2.5rem; /* Espacio para los números de línea */
 }
 

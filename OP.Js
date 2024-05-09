@@ -343,7 +343,7 @@ let Matriz1 = [
 // Obtencion de todos los elementos HTML
 var Operador = document.getElementById('operador')
 var programaFuente = document.getElementById('programaFuente')
-var codificacion = document.getElementById('input')
+var programa = document.getElementById('programa')
 var archivoTokens = document.getElementById('archivoTokens')
 var listboxTokens = document.getElementById('listboxTokens')
 var erroresLexicos = document.getElementById('erroresLexicos')
@@ -354,11 +354,11 @@ var erroresLexicos = document.getElementById('errores')
 var tablaSimbolos = document.getElementById('simbolos')
 
 // Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
-codificacion.addEventListener('keydown', (e) => {
+programa.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        const lineaActual = codificacion.value.substr(0, codificacion.selectionStart).split('\n').length;
+        const lineaActual = programa.value.substr(0, programa.selectionStart).split('\n').length;
         if (lineaActual === 1) {
-            const primeraLinea = codificacion.value.substr(0, codificacion.selectionStart).split('\n')[0];
+            const primeraLinea = programa.value.substr(0, programa.selectionStart).split('\n')[0];
             if (primeraLinea.trim() === '') {
                 e.preventDefault();
             }
@@ -366,9 +366,16 @@ codificacion.addEventListener('keydown', (e) => {
     }
 });
 
+programa.addEventListener('scroll', function() {
+// Sincronizar el desplazamiento de scrollable2 con scrollable1
+numerosLineas[0].scrollTop = this.scrollTop
+numerosLineas[1].scrollTop = this.scrollTop
+listboxTokens.scrollTop = this.scrollTop
+});
+
 // Funcion que sigue el paso del programa fuente
 function actualizarNumerosLinea() {
-    const numeroLinea = codificacion.value.split('\n').length;
+    const numeroLinea = programa.value.split('\n').length;
     numerosLineas[0].innerHTML = '';
     numerosLineas[1].innerHTML = '';
     for (let i = 1; i <= numeroLinea; i++) {
@@ -378,7 +385,7 @@ function actualizarNumerosLinea() {
 }
 
 // Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
-codificacion.addEventListener('input',()=>{
+programa.addEventListener('input',()=>{
     console.clear()
     actualizarNumerosLinea()
 
@@ -398,7 +405,7 @@ function AnalizadorLexico(){
     let NumVID = 1;
 
     // Obtencion de la cadena 
-    let Cadena = codificacion.value.trim()
+    let Cadena = programa.value.trim()
     // Remplaza todos los saltos de linea por espacios en blanco
     Cadena = Cadena.replace(/\n/g, " ");
     // Obtencion de cada una de las palabras del textarea
@@ -505,7 +512,7 @@ function AnalizadorLexico(){
 //Archivo de Tokens
 function ArchivoTokens() {
     listboxTokens.value = ''
-    const Cadena = codificacion.value;
+    const Cadena = programa.value;
     const palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     
     // Recorrer todas las palabras y actualizar los Tokens
