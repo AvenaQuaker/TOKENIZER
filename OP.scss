@@ -67,7 +67,7 @@ body {
     justify-items: center;
     align-items: center;
 
-    .boton{
+    button{
         box-sizing: border-box;
         appearance: none;
         background-color: rgb(230, 234, 255);
@@ -88,13 +88,33 @@ body {
         font-weight: 700;
         transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
 
-        &:hover,
-        &:focus {
+        &:hover {
             box-shadow: 0 0 40px 40px rgb(0, 81, 255) inset;
             color: #fff;
             outline: 0;
         }
 
+        &.Guardar2inicial{
+            pointer-events: none;
+            border: 2px solid red;
+            
+            &:hover {
+                box-shadow: 0 0 40px 40px rgb(255, 0, 0) inset;
+                color: #fff;
+                outline: 0;
+            }
+        }
+
+        &.Guardar2final{
+            pointer-events: auto;
+            border: 2px solid green;
+            
+            &:hover {
+                box-shadow: 0 0 40px 40px green inset;
+                color: #fff;
+                outline: 0;
+            }
+        }
     }
 
     .AnalizadorDerecha{
@@ -104,6 +124,16 @@ body {
 
         #listboxTokens {
             padding-left: 2.5rem;
+
+            &:disabled{
+                background-color: white;
+            }
+        }
+
+        #simbolos {
+            &:disabled{
+                background-color: white;
+            }
         }
     }
 
@@ -114,6 +144,12 @@ body {
         
         #programa {
             padding-left: 2.5rem; /* Espacio para los números de línea */
+        }
+
+        #errores {
+            &:disabled{
+                background-color: white;
+            }
         }
     }
 }

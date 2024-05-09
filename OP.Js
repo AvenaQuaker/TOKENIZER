@@ -1,7 +1,7 @@
 
 // Variables globales
-var TokensDetectados = []
-var Variables = {}
+var TokensDetectados = [] //Arreglo para almacenar todo los Tokens
+var Variables = {} //Mapa para almacenar todo los Variables
 var contador = 1;
 
 // Alfabeto
@@ -352,37 +352,14 @@ var listado = document.querySelectorAll('.numeros')
 var numerosLineas = document.querySelectorAll('.numerosLinea')
 var erroresLexicos = document.getElementById('errores')
 var tablaSimbolos = document.getElementById('simbolos')
+var Cargar = document.getElementById('Cargar')
+var Editar = document.getElementById('Editar')
+var Guardar1 = document.getElementById('Guardar1')
+var Guardar2 = document.getElementById('Guardar2')
 
-// Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
-programa.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        const lineaActual = programa.value.substr(0, programa.selectionStart).split('\n').length;
-        if (lineaActual === 1) {
-            const primeraLinea = programa.value.substr(0, programa.selectionStart).split('\n')[0];
-            if (primeraLinea.trim() === '') {
-                e.preventDefault();
-            }
-        }
-    }
-});
 
-// Metodo que syncroniza el textarea del programa
-programa.addEventListener('scroll', function() {
-numerosLineas[0].scrollTop = this.scrollTop
-numerosLineas[1].scrollTop = this.scrollTop
-listboxTokens.scrollTop = this.scrollTop
-});
+// METODOS QUE MANEJAN TODO LA FUNCIONALIDAD REFERENTE AL ANALIZADOR LEXICO Y TODAS SUS PARTES
 
-// Funcion que sigue el paso del programa fuente
-function actualizarNumerosLinea() {
-    const numeroLinea = programa.value.split('\n').length;
-    numerosLineas[0].innerHTML = '';
-    numerosLineas[1].innerHTML = '';
-    for (let i = 1; i <= numeroLinea; i++) {
-        numerosLineas[0].innerHTML += i + '<br>';
-        numerosLineas[1].innerHTML += i + '<br>';
-    }
-}
 
 // Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
 programa.addEventListener('input',()=>{
@@ -456,7 +433,7 @@ function AnalizadorLexico(){
                 // Si el resultado es una cadena (TOKEN) entonces se acepta y se agrega
                 if(typeof VerificacionToken == "string")
                 {
-                    Resultado = VerificacionToken + ''
+                    Resultado = VerificacionToken + ' '
 
                     //Si el Token identificado es un IdentificadorValido, Se administra
                     if(Resultado.startsWith('VID')){
@@ -481,7 +458,7 @@ function AnalizadorLexico(){
                 // Puede resultar en el Codigo de Error, en el caso en que el proximo movimiento diriga el recorrido ahi
                 else{
                     VerificacionToken = Matriz1[accionPrueba][Matriz1[Fila].length - 1]         
-                    Resultado = VerificacionToken + ''
+                    Resultado = VerificacionToken + ' '
                     
                     //Si el Token identificado es un IdentificadorValido, Se administra
                     if(Resultado.startsWith('VID')){
@@ -529,6 +506,7 @@ function ArchivoTokens() {
     }
 }
 
+//Errores Lexicos
 function ErroresLexicos() {
     erroresLexicos.value = ''
     let Cadena = listboxTokens.value    
@@ -559,6 +537,7 @@ function ErroresLexicos() {
     }
 }
 
+//Tabla de Simbolos
 function TablaSimbolos() {
     tablaSimbolos.value = '';
 
@@ -566,5 +545,80 @@ function TablaSimbolos() {
     for (let nombre in Variables) {
         let identificador = Variables[nombre];
         tablaSimbolos.value += `   VID${identificador.ID}:   ${identificador.Nombre}\n`;
+    }
+}
+
+
+// METODOS QUE MANEJAN TODO LO VISUAL DE LA PAGINA Y INCLUYENDO LA FUNCIONALIDAD DE LOS BOTONES 
+
+
+// Metodo que gestiona las acciones del boton Cargar
+Cargar.addEventListener('click',()=>{
+    programa.disabled = true; 
+    Guardar2.classList.toggle('Guardar2final');
+    Cargar.style.pointerEvents = 'none';
+})
+// Metodo que gestiona las acciones del boton Editar
+Editar.addEventListener('click',()=>{
+    programa.disabled = false; 
+    Cargar.style.pointerEvents = 'auto';
+    Guardar2.classList.toggle('Guardar2final');
+})
+// Metodo que gestiona las acciones del boton Guardar programa
+Guardar1.addEventListener('click',()=>{
+    let texto = programa.value
+    let elemento = document.createElement('a');
+    elemento.setAttribute('href','data:text/plain;charset=utf-8,' + encodeURIComponent(texto));
+    elemento.setAttribute('download',"ProgramaFuente.txt");
+    elemento.style.display = 'none';
+    document.body.appendChild(elemento);
+    elemento.click();
+    document.body.removeChild(elemento);
+})
+// Metodo que gestiona las acciones del boton Guardar archivo de tokens
+Guardar2.addEventListener('click',()=>{
+    let texto = listboxTokens.value
+    let elemento = document.createElement('a');
+    elemento.setAttribute('href','data:text/plain;charset=utf-8,' + encodeURIComponent(texto));
+    elemento.setAttribute('download',"ArchivoTokens.txt");
+    elemento.style.display = 'none';
+    document.body.appendChild(elemento);
+    elemento.click();
+    document.body.removeChild(elemento);
+})
+
+// Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
+programa.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const lineaActual = programa.value.substr(0, programa.selectionStart).split('\n').length;
+        if (lineaActual === 1) {
+            const primeraLinea = programa.value.substr(0, programa.selectionStart).split('\n')[0];
+            if (primeraLinea.trim() === '') {
+                e.preventDefault();
+            }
+        }
+    }
+});
+
+// Metodos que syncroniza el textarea del programa
+programa.addEventListener('scroll', function() {
+    numerosLineas[0].scrollTop = this.scrollTop
+    numerosLineas[1].scrollTop = this.scrollTop
+    listboxTokens.scrollTop = this.scrollTop
+});
+listboxTokens.addEventListener('scroll', function() {
+    numerosLineas[0].scrollTop = this.scrollTop
+    numerosLineas[1].scrollTop = this.scrollTop
+    programa.scrollTop = this.scrollTop
+});
+
+// Funcion que sigue el paso del programa fuente
+function actualizarNumerosLinea() {
+    const numeroLinea = programa.value.split('\n').length;
+    numerosLineas[0].innerHTML = '';
+    numerosLineas[1].innerHTML = '';
+    for (let i = 1; i <= numeroLinea; i++) {
+        numerosLineas[0].innerHTML += i + '<br>';
+        numerosLineas[1].innerHTML += i + '<br>';
     }
 }
