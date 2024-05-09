@@ -443,12 +443,12 @@ function AnalizadorLexico(){
                         //Si no, anade el identificador al diccionario, como una nueva variable
                         if(Variables.hasOwnProperty(palabraEscrita)){
                             Objeto = Variables[palabraEscrita]
-                            Resultado = Resultado + Objeto.ID
+                            Resultado = `${Resultado.trim()}${Objeto.ID}` + ' ';
                         }
                         else{
                             VariableNueva = { ID: NumVID, Nombre: palabraEscrita,}
                             Variables[palabraEscrita] = VariableNueva
-                            Resultado = Resultado + NumVID
+                            Resultado = `${Resultado.trim()}${NumVID}` + ' ';
                             NumVID++
                         }
                     }
@@ -468,12 +468,12 @@ function AnalizadorLexico(){
                         //Si no, anade el identificador al diccionario, como una nueva variable
                         if(Variables.hasOwnProperty(palabraEscrita)){
                             Objeto = Variables[palabraEscrita]
-                            Resultado = Resultado + Objeto.ID + ' '
+                            Resultado = `${Resultado.trim()}${Objeto.ID}` + ' ';
                         }
                         else{
                             VariableNueva = { ID: NumVID, Nombre: palabraEscrita,}
                             Variables[palabraEscrita] = VariableNueva
-                            Resultado = Resultado + NumVID + ' '
+                            Resultado = `${Resultado.trim()}${NumVID}` + ' ';
                             NumVID++
                         }
                     }
@@ -554,37 +554,80 @@ function TablaSimbolos() {
 
 // Metodo que gestiona las acciones del boton Cargar
 Cargar.addEventListener('click',()=>{
+    let Bandera = true;
     programa.disabled = true; 
-    Guardar2.classList.toggle('Guardar2final');
     Cargar.style.pointerEvents = 'none';
+
+    let Cadena = listboxTokens.value    
+    let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
+    for (let i = 0; i < palabras.length; i++) {
+        if(palabras[i].startsWith('ER')){
+            Bandera = false;
+            break;
+        }
+    }
+
+    if(Bandera){
+        Guardar2.classList.toggle('Guardar2final');
+    }
 })
 // Metodo que gestiona las acciones del boton Editar
 Editar.addEventListener('click',()=>{
+    let Bandera = true;
     programa.disabled = false; 
     Cargar.style.pointerEvents = 'auto';
-    Guardar2.classList.toggle('Guardar2final');
+
+    let Cadena = listboxTokens.value    
+    let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
+    for (let i = 0; i < palabras.length; i++) {
+        if(palabras[i].startsWith('ER')){
+            Bandera = false;
+            break;
+        }
+    }
+
+    if(Bandera){
+        Guardar2.classList.toggle('Guardar2final');
+    }
 })
 // Metodo que gestiona las acciones del boton Guardar programa
-Guardar1.addEventListener('click',()=>{
-    let texto = programa.value
-    let elemento = document.createElement('a');
-    elemento.setAttribute('href','data:text/plain;charset=utf-8,' + encodeURIComponent(texto));
-    elemento.setAttribute('download',"ProgramaFuente.txt");
-    elemento.style.display = 'none';
-    document.body.appendChild(elemento);
-    elemento.click();
-    document.body.removeChild(elemento);
-})
+Guardar1.addEventListener('click', async () => {
+    let texto = programa.value;
+    // Opciones para el save file picker
+    const options = {
+        types: [{
+            description: 'Archivo de Texto',
+            accept: {'text/plain': ['.txt']},
+        }],
+    };
+    // Mostrar el save file picker
+    const handle = await window.showSaveFilePicker(options);
+    // Crear un writable stream
+    const writableStream = await handle.createWritable();
+    // Escribir el contenido en el archivo
+    await writableStream.write(texto);
+    // Cerrar el archivo
+    await writableStream.close();
+});
+
 // Metodo que gestiona las acciones del boton Guardar archivo de tokens
-Guardar2.addEventListener('click',()=>{
-    let texto = listboxTokens.value
-    let elemento = document.createElement('a');
-    elemento.setAttribute('href','data:text/plain;charset=utf-8,' + encodeURIComponent(texto));
-    elemento.setAttribute('download',"ArchivoTokens.txt");
-    elemento.style.display = 'none';
-    document.body.appendChild(elemento);
-    elemento.click();
-    document.body.removeChild(elemento);
+Guardar2.addEventListener('click', async ()=>{
+    let texto = listboxTokens.value;
+    // Opciones para el save file picker
+    const options = {
+        types: [{
+            description: 'Archivo de Texto',
+            accept: {'text/plain': ['.txt']},
+        }],
+    };
+    // Mostrar el save file picker
+    const handle = await window.showSaveFilePicker(options);
+    // Crear un writable stream
+    const writableStream = await handle.createWritable();
+    // Escribir el contenido en el archivo
+    await writableStream.write(texto);
+    // Cerrar el archivo
+    await writableStream.close();
 })
 
 // Metodo que se invoca cada vez que se teclea algo en el textarea del programa fuente
