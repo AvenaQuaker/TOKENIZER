@@ -366,8 +366,8 @@ programa.addEventListener('keydown', (e) => {
     }
 });
 
+// Metodo que syncroniza el textarea del programa
 programa.addEventListener('scroll', function() {
-// Sincronizar el desplazamiento de scrollable2 con scrollable1
 numerosLineas[0].scrollTop = this.scrollTop
 numerosLineas[1].scrollTop = this.scrollTop
 listboxTokens.scrollTop = this.scrollTop
