@@ -2,7 +2,7 @@
 // Variables globales
 var TokensDetectados = [] //Arreglo para almacenar todo los Tokens
 var Variables = {} //Mapa para almacenar todo los Variables
-var contador = 1;
+var contador = 1; // Contador inicial
 
 // Alfabeto
 let Alfabeto1 = {
@@ -96,6 +96,10 @@ let Alfabeto1 = {
     "\\": 61,
     '~': 62,
     '`': 63,
+    '{': 63,
+    '}': 63,
+    '[': 63,
+    ']': 63,
     '': 64,
     ' ': 64,
     '\n': 64,
@@ -120,8 +124,8 @@ let Errores = {
 // Matriz de Transicion
 let Matriz1 = [
     //     0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49   50   51   52   53   54   55   56   57   58   59   60   61   62   63   64        65        
-    //     A    B    C    D    E     F   G    H    I	  J    K    L    M	  N    O    P    Q    R    S    T    U    V    W    X    Y    Z    0    1    2	  3    4    5    6    7    8    9    $	  +    -    /    *	  ^    .    <    >	  =    !    &    |	  "    ,    ;    _   (   )    @    #    %    ?    :    '	  \    ~    `   FDC       Acepta
-    /*0*/[190, 1  , 7  , 190, 19 , 62 , 190, 190, 77 , 190, 190, 190, 190, 190, 190, 190, 190, 90 , 100, 107, 190, 190, 115, 190, 190, 190, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 126, 129, 144, 148, 146, 153, 190, 155, 159, 163, 167, 171, 174, 177, 186, 184, 190, 190, 190, 182, 182, 182, 182, 182, 182, 182, 182, 182, 190,      190],
+    //     A    B    C    D    E    F    G    H    I    J    K    L    M    N    O    P    Q    R    S    T    U    V    W    X    Y    Z    0    1    2	3    4    5    6    7    8    9    $	+    -    /    *	^    .    <    >	=    !    &    |	"    ,    ;    _    (    )    @    #    %    ?    :    '    \    ~    `   FDC       Acepta
+    /*0*/[190, 1  , 7  , 190, 19 , 62 , 190, 190, 77 , 190, 190, 190, 190, 190, 190, 190, 190, 90 , 100, 107, 190, 190, 115, 190, 190, 190, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 126, 129, 144, 148, 146, 153, 190, 155, 159, 163, 167, 171, 174, 177, 186, 184, 182, 182, 182, 182, 182, 182, 182, 182, 182, 182, 182, 182, 190,      190],
     /*1*/[190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 2  , 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      190],
     /*2*/[190, 190, 190, 190, 3  , 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      190],
     /*3*/[4  , 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190, 190,      190],
@@ -362,18 +366,22 @@ var Guardar2 = document.getElementById('Guardar2')
 
 
 // Metodo que se invoca cada vez que se escribe algo en el textarea del programa fuente
-programa.addEventListener('input',()=>{
+programa.addEventListener('input',analizadorLexico);
+programa.addEventListener('paste',analizadorLexico);
+
+//Analizador Lexico
+function analizadorLexico(){
     console.clear()
     actualizarNumerosLinea()
 
-    AnalizadorLexico() 
+    ProgramaFuente() 
     ArchivoTokens()
     ErroresLexicos()
     TablaSimbolos()
-})
+}
 
-// Analizador Lexico
-function AnalizadorLexico(){
+// Programa Fuente
+function ProgramaFuente(){
     // Inicializacion de variables de inicio para el analizador
     TokensDetectados = []
     Variables = {}
@@ -386,7 +394,6 @@ function AnalizadorLexico(){
     // Remplaza todos los saltos de linea por espacios en blanco
     Cadena = Cadena.replace(/\n/g, " ");
     // Obtencion de cada una de las palabras del textarea
-    let Entradas = Cadena.split(/(?<=\s)(?![\s\n])/) 
     let Palabras = Cadena.split(' ');
 
     // Recorrido por cada una de las palabras
@@ -486,35 +493,43 @@ function AnalizadorLexico(){
 }
 }
 
-//Archivo de Tokens
+// Archivo de Tokens
 function ArchivoTokens() {
-    listboxTokens.value = ''
+    listboxTokens.innerHTML = '';
     const Cadena = programa.value;
     const palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     
-    // Recorrer todas las palabras y actualizar los Tokens
-    for (let i = 0; i < palabras.length; i++) {
-        if (/\n/.test(palabras[i])) {
-            let cantidadSaltos = palabras[i].match(/\n/g).length;
-            let saltos = '\n'.repeat(cantidadSaltos);
-            TokensDetectados[i] += saltos;
-        }
-    }
+    if(palabras[0] !=''){
+        // Recorrer todas las palabras y actualizar los Tokens
+        for (let i = 0; i < palabras.length; i++) {
+            if (/\n/.test(palabras[i])) {
+                let cantidadSaltos = palabras[i].match(/\n/g).length;
+                let saltos = '\n'.repeat(cantidadSaltos);
+                TokensDetectados[i] += saltos
+            }
+            
+            let span = document.createElement('span');
+            span.textContent = TokensDetectados[i];
 
-    for(i = 0; TokensDetectados.length > i ; i++){
-        listboxTokens.value = listboxTokens.value + TokensDetectados[i] 
+            if (TokensDetectados[i].startsWith('ER')) {
+                span.classList.add('error');
+            }
+
+            listboxTokens.appendChild(span);
+        }
     }
 }
 
 //Errores Lexicos
 function ErroresLexicos() {
     erroresLexicos.value = ''
-    let Cadena = listboxTokens.value    
+    let Cadena = listboxTokens.innerText    
     let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     let NumeroLinea = 1;
 
-    // Recorrer todos los Tokens y detectar los errores
-    for (let i = 0; i < palabras.length; i++) {
+    if(palabras[0] != ''){
+        // Recorrer todos los Tokens y detectar los errores
+        for (let i = 0; i < palabras.length; i++) {
         let cantidadSaltos;
         let Bandera = false;
         let error = ''
@@ -532,8 +547,7 @@ function ErroresLexicos() {
         if(Bandera == true){
             NumeroLinea = NumeroLinea + cantidadSaltos
         }
-        Bandera = false;
-
+        }
     }
 }
 
@@ -558,7 +572,7 @@ Cargar.addEventListener('click',()=>{
     programa.disabled = true; 
     Cargar.style.pointerEvents = 'none';
 
-    let Cadena = listboxTokens.value    
+    let Cadena = listboxTokens.innerText    
     let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     for (let i = 0; i < palabras.length; i++) {
         if(palabras[i].startsWith('ER')){
@@ -571,13 +585,14 @@ Cargar.addEventListener('click',()=>{
         Guardar2.classList.toggle('Guardar2final');
     }
 })
+
 // Metodo que gestiona las acciones del boton Editar
 Editar.addEventListener('click',()=>{
     let Bandera = true;
     programa.disabled = false; 
     Cargar.style.pointerEvents = 'auto';
 
-    let Cadena = listboxTokens.value    
+    let Cadena = listboxTokens.innerText   
     let palabras = Cadena.split(/(?<=\s)(?![\s\n])/);
     for (let i = 0; i < palabras.length; i++) {
         if(palabras[i].startsWith('ER')){
@@ -590,6 +605,7 @@ Editar.addEventListener('click',()=>{
         Guardar2.classList.toggle('Guardar2final');
     }
 })
+
 // Metodo que gestiona las acciones del boton Guardar programa
 Guardar1.addEventListener('click', async () => {
     let texto = programa.value;
@@ -612,7 +628,7 @@ Guardar1.addEventListener('click', async () => {
 
 // Metodo que gestiona las acciones del boton Guardar archivo de tokens
 Guardar2.addEventListener('click', async ()=>{
-    let texto = listboxTokens.value;
+    let texto = listboxTokens.innerText;
     // Opciones para el save file picker
     const options = {
         types: [{
